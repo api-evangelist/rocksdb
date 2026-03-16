@@ -1,11 +1,17 @@
+aid: rocksdb
 name: RocksDB
 description: RocksDB is a technology or concept used in computing and information
   technology to address specific technical challenges. It provides capabilities that
   help practitioners build, manage, or improve systems and processes in their domain.
-url: null
+type: Index
+url: https://raw.githubusercontent.com/api-evangelist/rocksdb/refs/heads/main/apis.yml
 tags:
 - RocksDB
-created: '2025'
-modified: '2025'
+created: '2025-01-01'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 apis: []
 common: []
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
