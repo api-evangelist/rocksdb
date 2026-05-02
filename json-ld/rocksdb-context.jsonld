@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "rocksdb": "https://api-evangelist.github.io/rocksdb/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "RocksDB": "rocksdb:RocksDB",
+    "Database": "rocksdb:Database",
+    "ColumnFamily": "rocksdb:ColumnFamily",
+    "KeyValueEntry": "rocksdb:KeyValueEntry",
+    "Snapshot": "rocksdb:Snapshot",
+    "Iterator": "rocksdb:Iterator",
+    "Transaction": "rocksdb:Transaction",
+    "CompactionJob": "rocksdb:CompactionJob",
+    "SSTableFile": "rocksdb:SSTableFile",
+    "WriteAheadLog": "rocksdb:WriteAheadLog",
+    "MemTable": "rocksdb:MemTable",
+    "BlockCache": "rocksdb:BlockCache",
+    "BlobDB": "rocksdb:BlobDB",
+
+    "key": {
+      "@id": "rocksdb:key",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "rocksdb:value"
+    },
+    "columnFamily": {
+      "@id": "rocksdb:columnFamily",
+      "@type": "xsd:string"
+    },
+    "sequenceNumber": {
+      "@id": "rocksdb:sequenceNumber",
+      "@type": "xsd:integer"
+    },
+    "ttl": {
+      "@id": "rocksdb:ttl",
+      "@type": "xsd:integer"
+    },
+    "compression": {
+      "@id": "rocksdb:compression",
+      "@type": "xsd:string"
+    },
+    "compactionStyle": {
+      "@id": "rocksdb:compactionStyle",
+      "@type": "xsd:string"
+    },
+    "writeBufferSize": {
+      "@id": "rocksdb:writeBufferSize",
+      "@type": "xsd:integer"
+    },
+    "bloomFilterBitsPerKey": {
+      "@id": "rocksdb:bloomFilterBitsPerKey",
+      "@type": "xsd:integer"
+    },
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "schema:description",
+      "@type": "xsd:string"
+    },
+    "version": {
+      "@id": "schema:version",
+      "@type": "xsd:string"
+    },
+    "license": {
+      "@id": "schema:license",
+      "@type": "@id"
+    },
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    }
+  }
+}

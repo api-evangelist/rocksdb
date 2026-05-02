@@ -1,0 +1,192 @@
+vocabulary:
+  name: RocksDB Vocabulary
+  description: >-
+    Domain vocabulary for RocksDB, the embeddable persistent key-value store.
+    Covers core data structures, storage concepts, compaction strategies,
+    configuration options, and operational terminology.
+  version: 1.0.0
+  modified: '2026-05-02'
+
+terms:
+
+  - term: Key-Value Store
+    definition: >-
+      A type of NoSQL database that stores data as a collection of key-value pairs,
+      where each key is a unique identifier associated with a value. RocksDB is a
+      persistent key-value store using byte arrays for both keys and values.
+    related: [LSM Tree, Column Family, MemTable]
+
+  - term: LSM Tree
+    aliases: [Log-Structured Merge Tree]
+    definition: >-
+      The fundamental data structure underlying RocksDB. Writes are first buffered
+      in an in-memory structure (MemTable), then flushed to disk as immutable SST
+      files, and periodically compacted to reclaim space and maintain read performance.
+    related: [MemTable, SST File, Compaction, Write Ahead Log]
+
+  - term: MemTable
+    definition: >-
+      The in-memory write buffer in RocksDB. New writes are first written to the
+      MemTable (and WAL). When the MemTable fills up, it is marked immutable and
+      flushed to an L0 SST file on disk.
+    related: [LSM Tree, SST File, Flush]
+
+  - term: SST File
+    aliases: [Static Sorted Table, SSTable]
+    definition: >-
+      Immutable, sorted files on disk containing RocksDB key-value data. SST files
+      are organized into levels (L0 through L6 in level compaction). New files are
+      created during flush and compaction operations.
+    related: [LSM Tree, Compaction, Level, Flush]
+
+  - term: Column Family
+    definition: >-
+      A logical grouping of keys within a RocksDB database, similar to a table in
+      a relational database. Each column family has its own MemTable and SST files
+      but shares the WAL. Allows separate configuration for different data types.
+    related: [Key-Value Store, MemTable, SST File]
+
+  - term: Compaction
+    definition: >-
+      The process of merging and rewriting SST files to reclaim disk space,
+      remove deleted entries, and improve read performance. RocksDB supports
+      Level, Universal, and FIFO compaction strategies.
+    related: [Leveled Compaction, Universal Compaction, FIFO Compaction, SST File]
+
+  - term: Leveled Compaction
+    definition: >-
+      The default compaction strategy in RocksDB. Files are organized into levels
+      (L0–L6) with exponentially growing size limits. Files in each level (except L0)
+      are non-overlapping, providing good read performance.
+    related: [Compaction, Universal Compaction, FIFO Compaction]
+
+  - term: Universal Compaction
+    definition: >-
+      A compaction style that reduces write amplification by merging all sorted runs
+      when their total size ratio exceeds a threshold. Better for write-heavy workloads
+      but may use more space during compaction.
+    related: [Compaction, Leveled Compaction]
+
+  - term: FIFO Compaction
+    definition: >-
+      A simple compaction style for time-series-like workloads where old files are
+      simply deleted (First In, First Out) when the total database size exceeds a limit.
+    related: [Compaction, TTL]
+
+  - term: Write Ahead Log
+    aliases: [WAL]
+    definition: >-
+      A sequential log file written before data is applied to the MemTable.
+      Provides crash recovery: if RocksDB crashes, uncommitted writes in the
+      MemTable can be recovered by replaying the WAL.
+    related: [MemTable, Crash Recovery, Flush]
+
+  - term: Snapshot
+    definition: >-
+      A point-in-time consistent view of the database. Reads using a snapshot
+      see only data that existed when the snapshot was created, even if newer
+      writes have occurred. Used for consistent scans without blocking writes.
+    related: [Iterator, Transaction, Sequence Number]
+
+  - term: Iterator
+    definition: >-
+      A cursor for scanning key-value pairs in RocksDB in sorted order. Iterators
+      support SeekToFirst, SeekToLast, Seek(key), Next, Prev operations and can
+      be created over a Snapshot for consistent reads.
+    related: [Snapshot, Prefix Seek, Column Family]
+
+  - term: Transaction
+    definition: >-
+      An atomic and isolated group of operations in RocksDB using the TransactionDB
+      or OptimisticTransactionDB API. Supports ACID properties including rollback
+      on conflict.
+    related: [Snapshot, Write Batch, Optimistic Locking]
+
+  - term: Write Batch
+    definition: >-
+      A group of Put, Delete, and Merge operations applied atomically. WriteBatch
+      is the primary mechanism for atomic multi-key writes without full transaction
+      overhead.
+    related: [Transaction, MemTable]
+
+  - term: Merge Operator
+    definition: >-
+      A user-defined operation for read-modify-write sequences. Instead of reading
+      a value, modifying it, and writing it back, the Merge operator allows the
+      modification to be deferred and applied lazily during reads or compaction.
+    related: [Write Batch, Compaction]
+
+  - term: Bloom Filter
+    definition: >-
+      A probabilistic data structure used in RocksDB's SST files and MemTable to
+      quickly determine if a key does NOT exist in a file, avoiding unnecessary
+      disk reads. Configured via bloom_filter_bits_per_key option.
+    related: [SST File, Block Cache, Point Lookup]
+
+  - term: Block Cache
+    definition: >-
+      An in-memory cache for decompressed SST file data blocks. Reduces disk I/O
+      for read-heavy workloads. RocksDB uses a shared LRU block cache by default.
+    related: [SST File, Bloom Filter, Direct I/O]
+
+  - term: BlobDB
+    definition: >-
+      An extension to RocksDB that stores large values in separate blob files
+      rather than inline in the LSM tree, reducing write amplification for
+      workloads with large values (e.g., files, images, large JSON objects).
+    related: [SST File, Compaction, Value Separation]
+
+  - term: TTL
+    aliases: [Time to Live]
+    definition: >-
+      A mechanism in RocksDB to automatically expire keys after a configured
+      number of seconds. Expired keys are removed during compaction.
+    related: [FIFO Compaction, Compaction Filter]
+
+  - term: Compaction Filter
+    definition: >-
+      A user-defined callback invoked during compaction to selectively drop or
+      modify key-value pairs. Used to implement TTL, garbage collection, and
+      data transformation during background compaction.
+    related: [Compaction, TTL, Merge Operator]
+
+  - term: Flush
+    definition: >-
+      The process of writing an immutable MemTable to a new L0 SST file on disk.
+      Triggered when the MemTable reaches its write_buffer_size limit.
+    related: [MemTable, SST File, Write Ahead Log]
+
+  - term: Write Amplification Factor
+    aliases: [WAF]
+    definition: >-
+      The ratio of data written to storage versus data logically written by the
+      application. LSM trees trade write amplification (from compaction) for fast
+      sequential writes. Lower WAF means less disk wear.
+    related: [LSM Tree, Compaction, Universal Compaction]
+
+  - term: Read Amplification Factor
+    aliases: [RAF]
+    definition: >-
+      The number of disk reads required to satisfy a single key lookup. In RocksDB,
+      reads may check multiple levels and SST files. Bloom filters reduce RAF.
+    related: [Bloom Filter, Block Cache, Leveled Compaction]
+
+  - term: Space Amplification Factor
+    aliases: [SAF]
+    definition: >-
+      The ratio of total disk space used by the database versus the actual logical
+      data size. Compaction reduces space amplification by merging overlapping files.
+    related: [Compaction, FIFO Compaction, BlobDB]
+
+  - term: RocksJava
+    definition: >-
+      The official Java bindings for RocksDB, enabling Java applications to use
+      RocksDB as an embedded key-value store. Used in Apache Kafka Streams, Apache
+      Flink, and other JVM-based distributed systems.
+    related: [Key-Value Store, Column Family, Transaction]
+
+  - term: L5X
+    definition: >-
+      Logix Designer XML export format (not RocksDB-specific but sometimes
+      associated with Rockwell Automation tooling that uses RocksDB internally).
+    related: []

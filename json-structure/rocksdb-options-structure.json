@@ -1,0 +1,63 @@
+{
+  "title": "RocksDB Options Structure",
+  "description": "Hierarchical structure documentation for RocksDB database configuration, organized by configuration category.",
+  "structure": {
+    "DBOptions": {
+      "description": "Database-level options affecting the entire RocksDB instance",
+      "fields": {
+        "create_if_missing": "boolean - Create database if it does not exist",
+        "error_if_exists": "boolean - Raise error if database already exists",
+        "paranoid_checks": "boolean - Enable aggressive data integrity checking",
+        "max_open_files": "integer - Maximum number of open file descriptors (-1 = unlimited)",
+        "max_background_jobs": "integer - Maximum concurrent compaction and flush threads",
+        "max_total_wal_size": "integer - Maximum total size of WAL files in bytes",
+        "db_log_dir": "string - Directory for INFO log files",
+        "wal_dir": "string - Separate directory for WAL (Write Ahead Log) files",
+        "delete_obsolete_files_period_micros": "integer - Period for deleting obsolete files in microseconds",
+        "stats_dump_period_sec": "integer - Period to dump statistics to log in seconds",
+        "enable_pipelined_write": "boolean - Enable pipelined writes for higher throughput"
+      }
+    },
+    "ColumnFamilyOptions": {
+      "description": "Per-column-family options for storage, compaction, and memory",
+      "fields": {
+        "write_buffer_size": "integer - MemTable size in bytes before flush",
+        "max_write_buffer_number": "integer - Maximum number of MemTables before flush",
+        "min_write_buffer_number_to_merge": "integer - Minimum MemTables to merge before flush",
+        "compression": "string - Compression algorithm (snappy, zlib, lz4, zstd, etc.)",
+        "compaction_style": "string - Compaction algorithm (level, universal, fifo)",
+        "num_levels": "integer - Number of LSM levels",
+        "target_file_size_base": "integer - Target SST file size at level 1 in bytes",
+        "max_bytes_for_level_base": "integer - Maximum data size at level 1 in bytes",
+        "level0_file_num_compaction_trigger": "integer - Files at L0 to trigger compaction",
+        "bloom_filter_bits_per_key": "integer - Bits per key for bloom filter (reduces reads)",
+        "ttl": "integer - Seconds before keys expire (0 = disabled)",
+        "enable_blob_files": "boolean - Store large values in separate blob files",
+        "min_blob_size": "integer - Value size threshold for blob file storage"
+      }
+    },
+    "ReadOptions": {
+      "description": "Options for read operations (Get, Iterator)",
+      "fields": {
+        "verify_checksums": "boolean - Verify block checksums on read",
+        "fill_cache": "boolean - Populate block cache on read",
+        "snapshot": "object - Snapshot to read from for consistent reads",
+        "iterate_upper_bound": "string - Upper bound for iterator (exclusive)",
+        "iterate_lower_bound": "string - Lower bound for iterator (inclusive)",
+        "prefix_same_as_start": "boolean - Stop iterator when prefix changes",
+        "total_order_seek": "boolean - Disable prefix seek optimization",
+        "readahead_size": "integer - Readahead size for sequential scans in bytes"
+      }
+    },
+    "WriteOptions": {
+      "description": "Options for write operations (Put, Delete, Merge)",
+      "fields": {
+        "sync": "boolean - Sync WAL before acknowledging write",
+        "disableWAL": "boolean - Skip WAL for this write (fast but not crash-safe)",
+        "ignore_missing_column_families": "boolean - Silently ignore writes to unknown column families",
+        "no_slowdown": "boolean - Return error instead of sleeping during write throttling",
+        "low_pri": "boolean - Write at low priority (for background bulk loads)"
+      }
+    }
+  }
+}

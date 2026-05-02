@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/rocksdb/json-schema/rocksdb-key-value-schema.json",
+  "title": "RocksDB Key-Value Entry",
+  "description": "Schema representing a key-value entry in a RocksDB database, including optional column family and metadata.",
+  "type": "object",
+  "required": ["key", "value"],
+  "properties": {
+    "key": {
+      "type": "string",
+      "description": "The key as a string or base64-encoded byte string for binary keys.",
+      "examples": ["user:12345", "session:abc123"]
+    },
+    "value": {
+      "description": "The value associated with the key. Can be a string, object, or base64 bytes.",
+      "examples": ["{\"name\": \"Alice\"}", "binary-data-base64"]
+    },
+    "column_family": {
+      "type": "string",
+      "description": "Name of the column family containing this entry. Defaults to 'default'.",
+      "default": "default"
+    },
+    "sequence_number": {
+      "type": "integer",
+      "description": "Internal RocksDB sequence number at which this entry was written.",
+      "minimum": 0
+    },
+    "type": {
+      "type": "string",
+      "enum": ["put", "delete", "merge", "single_delete"],
+      "description": "Type of the RocksDB write operation.",
+      "default": "put"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the write operation (when user-defined timestamps are enabled)."
+    },
+    "ttl_seconds": {
+      "type": "integer",
+      "description": "Time-to-live in seconds from the creation time. Key expires after this duration.",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false
+}

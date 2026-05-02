@@ -1,0 +1,18 @@
+{
+  "operation": "Put",
+  "description": "Write a key-value pair to the default column family",
+  "language": "C++",
+  "code_snippet": "rocksdb::Status s = db->Put(rocksdb::WriteOptions(), key, value);\nassert(s.ok());",
+  "request": {
+    "key": "user:12345",
+    "value": "{\"name\": \"Alice\", \"email\": \"alice@example.com\"}",
+    "column_family": "default",
+    "options": {
+      "sync": false,
+      "disableWAL": false
+    }
+  },
+  "response": {
+    "status": "OK"
+  }
+}

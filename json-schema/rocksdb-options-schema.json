@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/rocksdb/json-schema/rocksdb-options-schema.json",
+  "title": "RocksDB Options",
+  "description": "Schema representing RocksDB database configuration options controlling storage behavior, compaction, memory usage, and performance tuning.",
+  "type": "object",
+  "properties": {
+    "create_if_missing": {
+      "type": "boolean",
+      "description": "If true, the database will be created if it does not exist.",
+      "default": false
+    },
+    "error_if_exists": {
+      "type": "boolean",
+      "description": "If true, an error is raised if the database already exists.",
+      "default": false
+    },
+    "paranoid_checks": {
+      "type": "boolean",
+      "description": "If true, the implementation will do aggressive checking of the data it is processing and will stop early if it detects any errors.",
+      "default": false
+    },
+    "max_open_files": {
+      "type": "integer",
+      "description": "Number of open files that can be used by the DB. Value -1 means files are always kept open.",
+      "default": -1
+    },
+    "write_buffer_size": {
+      "type": "integer",
+      "description": "Amount of data to build up in memory (backed by an unsorted log on disk) before converting to a sorted on-disk file. In bytes.",
+      "default": 67108864
+    },
+    "max_write_buffer_number": {
+      "type": "integer",
+      "description": "The maximum number of write buffers that are built up in memory.",
+      "default": 2
+    },
+    "target_file_size_base": {
+      "type": "integer",
+      "description": "Target file size for compaction in bytes.",
+      "default": 67108864
+    },
+    "max_bytes_for_level_base": {
+      "type": "integer",
+      "description": "Control maximum total data size for a level. Default 256MB.",
+      "default": 268435456
+    },
+    "compression": {
+      "type": "string",
+      "enum": ["no_compression", "snappy", "zlib", "bzip2", "lz4", "lz4hc", "xpress", "zstd"],
+      "description": "Compression algorithm used for each level.",
+      "default": "snappy"
+    },
+    "compaction_style": {
+      "type": "string",
+      "enum": ["level", "universal", "fifo", "none"],
+      "description": "The compaction style: level-based, universal, FIFO, or none.",
+      "default": "level"
+    },
+    "num_levels": {
+      "type": "integer",
+      "description": "Number of levels for this database.",
+      "default": 7
+    },
+    "level0_file_num_compaction_trigger": {
+      "type": "integer",
+      "description": "Number of files to trigger level-0 compaction.",
+      "default": 4
+    },
+    "max_background_jobs": {
+      "type": "integer",
+      "description": "Maximum number of concurrent background jobs (compactions and flushes).",
+      "default": 2
+    },
+    "use_direct_io_for_flush_and_compaction": {
+      "type": "boolean",
+      "description": "Use O_DIRECT for background flush and compaction I/O.",
+      "default": false
+    },
+    "enable_blob_files": {
+      "type": "boolean",
+      "description": "Enable BlobDB for storing large values separately from the LSM tree.",
+      "default": false
+    },
+    "min_blob_size": {
+      "type": "integer",
+      "description": "Values at or above this threshold will be stored in blob files. In bytes.",
+      "default": 0
+    },
+    "blob_compression_type": {
+      "type": "string",
+      "enum": ["no_compression", "snappy", "zlib", "bzip2", "lz4", "lz4hc", "zstd"],
+      "description": "Compression algorithm for blob files.",
+      "default": "no_compression"
+    },
+    "ttl": {
+      "type": "integer",
+      "description": "Time to live in seconds for keys. 0 means no TTL.",
+      "default": 0
+    }
+  },
+  "additionalProperties": false
+}
