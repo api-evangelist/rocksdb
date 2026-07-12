@@ -87,6 +87,8 @@ apis:
         type: PackageManager
 
 common:
+  - type: DomainSecurity
+    url: security/rocksdb-domain-security.yml
   - url: https://rocksdb.org/
     type: Website
   - url: https://github.com/facebook/rocksdb
@@ -109,6 +111,8 @@ common:
     type: JSONLDContext
   - url: vocabulary/rocksdb-vocabulary.yml
     type: Vocabulary
+  - url: https://rocksdb.org/feed.xml
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
