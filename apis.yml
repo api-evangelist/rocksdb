@@ -1,4 +1,17 @@
 aid: rocksdb
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/rocksdb.png
 name: RocksDB
 description: >-
   RocksDB is an embeddable persistent key-value store for fast storage, developed
