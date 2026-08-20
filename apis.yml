@@ -27,6 +27,12 @@ tags:
   - Key-Value Store
   - Embedded Database
   - Storage Engine
+  - Open-Source
+tags_raw:
+  - RocksDB
+  - Key-Value Store
+  - Embedded Database
+  - Storage Engine
   - Open Source
 created: '2025-01-01'
 modified: '2026-05-02'
@@ -40,6 +46,12 @@ apis:
       compaction, and backup. The primary interface for embedding RocksDB in
       applications as a persistent key-value store.
     tags:
+      - Key-Value Store
+      - Embedded Database
+      - Storage Engine
+      - C++
+      - Open-Source
+    tags_raw:
       - Key-Value Store
       - Embedded Database
       - Storage Engine
