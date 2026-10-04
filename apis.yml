@@ -1,14 +1,19 @@
 aid: rocksdb
 deliveryModel:
-  model: unknown
-  open_source: unknown
+  model: self-hosted
+  license: GPL-2.0
+  license_evidence:
+    repo: facebook/rocksdb
+    spdx: GPL-2.0
+    stars: 32131
+  open_source: true
   commercial: false
   callable_host: false
-  label: Delivery model not determined — needs a product licence on record
-  confidence: low
+  label: Self-hosted open source · you run it yourself
+  confidence: medium
   source:
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-license
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -38,13 +43,14 @@ tags:
   - Key-Value Store
   - Embedded Database
   - Storage Engine
-  - Open-Source
+  - Open Source
 tags_raw:
   - RocksDB
   - Key-Value Store
   - Embedded Database
   - Storage Engine
   - Open Source
+  - Open-Source
 created: '2025-01-01'
 modified: '2026-05-02'
 specificationVersion: '0.23'
@@ -61,13 +67,14 @@ apis:
       - Embedded Database
       - Storage Engine
       - C++
-      - Open-Source
+      - Open Source
     tags_raw:
       - Key-Value Store
       - Embedded Database
       - Storage Engine
       - C++
       - Open Source
+      - Open-Source
     humanURL: https://rocksdb.org/
     baseURL: https://github.com/facebook/rocksdb
     properties:
