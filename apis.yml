@@ -130,6 +130,12 @@ apis:
         type: PackageManager
 
 common:
+  - type: Plans
+    url: plans/rocksdb-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/rocksdb-rate-limits.yml
+  - type: FinOps
+    url: finops/rocksdb-finops.yml
   - type: DomainSecurity
     url: security/rocksdb-domain-security.yml
   - url: https://rocksdb.org/
